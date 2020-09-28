@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Basic Video Chat</title>
+    <meta name="description" content="A basic audio-video chat application" />
+    <link id="favicon" rel="icon" href="https://tokbox.com/developer/favicon.ico" type="image/x-icon" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+    <header>
+        <h1>The most basic video chat</h1>
+    </header>
+
+    <main>
+        <div id="subscriber" class="subscriber"></div>
+        <div id="publisher" class="publisher"></div>
+    </main>
+    <footer>
+        <p><small>Built with the <a href="https://tokbox.com/developer/">Vonage Video API</a>.</small></p>
+        <div id="buttons">
+            <button type="button" id="start" onClick="javascript:startArchive()" class="btn btn-danger">Start
+                Archive</button>
+            <button type="button" id="stop" onClick="javascript:stopArchive()" class="btn btn-danger">Stop
+                Archive</button>
+            <button type="button" id="view" onClick="javascript:saveArchive()" class="btn btn-danger">Save
+                Archive</button>
+        </div>
+
+    </footer>
+    <script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
+    <script src="/client.js"></script>
+</body>
+
+</html>

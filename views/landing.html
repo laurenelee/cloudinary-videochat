@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Basic Video Chat</title>
+    <meta name="description" content="A basic audio-video chat application" />
+    <link id="favicon" rel="icon" href="https://tokbox.com/developer/favicon.ico" type="image/x-icon" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+    <header>
+        <h1>Vonage + Cloudinary Video Chat Collab App</h1>
+    </header>
+
+    <main>
+        <form id="registration" class="registration">
+            <label>
+                <span>Room</span>
+                <input type="text" name="room-name" placeholder="Enter room name" required />
+            </label>
+            <label id="userName">
+                <span>User name</span>
+                <input type="text" name="user-name" placeholder="Enter your name" required />
+            </label>
+
+            <button>Enter</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>
+            <small>Built with the <a href="https://tokbox.com/developer/">Vonage Video API</a>.</small>
+        </p>
+    </footer>
+
+    <script>
+        const form = document.getElementById("registration");
+        form.addEventListener("submit", event => {
+            event.preventDefault();
+            location.href = `/session/participant/${form.elements["room-name"].value}?username=${form.elements["user-name"].value}`;
+        });
+    </script>
+
+</body>
+
+</html>
