@@ -86,10 +86,25 @@ app.get('/download/:archiveId', (req, res) => {
     var archiveId = req.params['archiveId'];
     OT.getArchive(archiveId, (err, archive) => {
         if (err) return res.status(500).send('Could not get archive ' + archiveId + '. error=' + err.message);
-        return res.send(archive.url);
-        // NOTE TO FUTURE SELF
-        // send other metadata in archive
-        // send to cloudinary now and return cloudinary url
+        cloudinary.uploader.upload(archive.url, {
+            resource_type: 'video',
+            public_id: 'new_vonage-cloudinary-video',
+            raw_convert: 'google_speech:srt:vtt',
+            categorization: 'google_video_tagging',
+            folder: 'new_collab20200929',
+            auto_tagging: 0.6,
+            notification_url: 'https://webhook.site/0b500683-d59a-499e-a275-234b14ac7f52'
+        })
+            .then(result => {
+                console.log(JSON.stringify(null, 2, result))
+                return res.send(result.secure_url);
+            })
+            .catch(error => {
+                console.log(error)
+                return res.send(error)
+            })
+        // https://webhook.site/0b500683-d59a-499e-a275-234b14ac7f52
+
     });
 });
 
@@ -98,7 +113,7 @@ function generatePublisherToken(roomName, streamName, response) {
     // configure token options
     const tokenOptions = {
         role: "publisher",
-        data: `roomname=${roomName}?streamname=${streamName}`
+        data: `roomname = ${roomName} ? streamname = ${streamName}`
     };
     // generate token with OpenTok SDK
     let token = OT.generateToken(
@@ -119,7 +134,7 @@ function generateSubscriberToken(roomName, response) {
     // Configure token options
     const tokenOptions = {
         role: "subscriber",
-        data: `roomname=${roomName}`
+        data: `roomname = ${roomName}`
     };
     // Generate token with the OpenTok SDK
     let token = OT.generateToken(
